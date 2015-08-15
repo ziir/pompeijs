@@ -1,1 +1,5 @@
-export default {};
+import Device from './device';
+
+export default {
+  Device
+};

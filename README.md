@@ -9,8 +9,6 @@ Pompei is a JavaScript library.
 
 [![MIT License][license-image]][license-url]
 
-[![Sauce Test Status][saucelabs-image]][saucelabs-url]
-
 ## Tools available
 
 - [babeljs](https://babeljs.io/)

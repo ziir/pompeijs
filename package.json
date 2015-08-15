@@ -34,12 +34,12 @@
     "karma-babel-preprocessor": "^5.2.1",
     "karma-coverage": "^0.4.2",
     "karma-mocha": "^0.1.10",
-    "karma-sauce-launcher": "^0.2.11",
     "karma-phantomjs-launcher": "^0.2.0",
+    "karma-sauce-launcher": "^0.2.11",
     "serve": "^1.4.0",
     "sinon": "^1.15.3",
     "sinon-chai": "^2.8.0",
     "uglify-js": "^2.4.23",
-    "webpack": "^1.9.11"
+    "webpack": "^1.11.0"
   }
 }

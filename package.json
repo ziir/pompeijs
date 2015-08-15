@@ -1,19 +1,45 @@
 {
   "name": "pompei",
   "version": "0.0.1",
-  "description": "",
+  "description": "Pompei is a JavaScript library.",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/ziir/pompeijs.git"
+    "url": "git+ssh://git@github.com/pompeijs/pompeijs.git"
   },
-  "author": "Tim PILLARD <tim@tpillard.fr> (https://github.com/ziir)",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ziir/pompeijs/issues"
+  "authors": [
+    "Tim Pillard <tim@tpillard.fr> (https://github.com/ziir)",
+    "Julien Moreau (https://github.com/julien-moreau)"
+  ],
+  "scripts": {
+    "test": "node make test",
+    "serve": "node make serve",
+    "eslint": "node make eslint",
+    "build": "node make build",
+    "watch": "node make watch",
+    "minify": "node make minify",
+    "saucelabs": "node make saucelabs",
+    "default": "node make"
   },
-  "homepage": "https://github.com/ziir/pompeijs#readme"
+  "keywords": [],
+  "license": "MIT",
+  "devDependencies": {
+    "babel": "^5.5.8",
+    "babel-core": "^5.5.8",
+    "babel-loader": "^5.1.4",
+    "chai": "^3.0.0",
+    "chokidar": "^1.0.3",
+    "eslint": "^0.23.0",
+    "karma": "^0.12.36",
+    "karma-babel-preprocessor": "^5.2.1",
+    "karma-coverage": "^0.4.2",
+    "karma-mocha": "^0.1.10",
+    "karma-sauce-launcher": "^0.2.11",
+    "karma-phantomjs-launcher": "^0.2.0",
+    "serve": "^1.4.0",
+    "sinon": "^1.15.3",
+    "sinon-chai": "^2.8.0",
+    "uglify-js": "^2.4.23",
+    "webpack": "^1.9.11"
+  }
 }

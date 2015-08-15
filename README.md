@@ -71,8 +71,8 @@ None.
 [gemnasium-image]: https://img.shields.io/gemnasium/pompeijs/pompeijs.svg
 [gemnasium-url]: https://gemnasium.com/pompeijs/pompeijs
 
-[travis-url]:https://travis-ci.org/pompeijs/pompeijs
-[travis-image]: https://img.shields.io/travis/pompeijs/pompeijs.svg
+[travis-url]:https://travis-ci.org/Pompeijs/pompeijs
+[travis-image]: https://img.shields.io/travis/Pompeijs/pompeijs.svg
 
 [license-url]: LICENSE
 [license-image]: http://img.shields.io/badge/license-MIT-000000.svg

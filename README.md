@@ -21,16 +21,9 @@ Pompei is a JavaScript library.
 
 # Usage
 
-Once you've downloaded the files in this repo please run the following command in your terminal from the project folder (it may require `sudo`):
-
 ```shell
 $ npm install
 ```
-
-Browsing the [make](make) file you will find all the available terminal commands to compile/test your project. __This file contains also the script name used for the output__
-All the build tasks available are based on the __native javascript promises__ so you will be able to chain and combine them as you prefer
-
-If you have installed correctly all the nodejs modules you can start writing your javascript modules into the `src` folder of course using the awesome javascript es6 syntax.
 
 ## Available tasks
 
@@ -58,11 +51,6 @@ $ ./make serve # or also `$ npm run serve`
 ```shell
 $ ./make watch # or also `$ npm run watch`
 ```
-
-# Dependencies
-
-None.
-
 
 [npm-url]: https://npmjs.org/package/pompei
 [npm-version-image]: http://img.shields.io/npm/v/pompei.svg

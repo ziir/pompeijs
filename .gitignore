@@ -17,3 +17,5 @@ results
 .idea
 npm-debug.log
 coverage
+
+index.html

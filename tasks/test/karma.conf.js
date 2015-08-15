@@ -13,10 +13,10 @@ module.exports = function(config) {
       basePath: '../../',
       autoWatch: true,
       frameworks: ['mocha'],
-      sauceLabs: {
-        build: process.env.TRAVIS_JOB_ID,
-        testName: process.env.LIBRARY_NAME
-      },
+      // sauceLabs: {
+      //   build: process.env.TRAVIS_JOB_ID,
+      //   testName: process.env.LIBRARY_NAME
+      // },
       browserNoActivityTimeout: 120000,
       customLaunchers: saucelabsBrowsers,
       files: [

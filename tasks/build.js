@@ -31,9 +31,7 @@ module.exports = function(options) {
         loaders: [{
           test: /\.js$/,
           exclude: /node_modules/,
-          // remove the ?externalHelpers=true if you want to include
-          // the babel helpers directly in your library
-          loader: 'babel-loader?externalHelpers=true'
+          loader: 'babel-loader'
         }]
       }
     }, function(err, stats) {

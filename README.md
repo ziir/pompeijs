@@ -70,9 +70,11 @@ None.
 [npm-version-image]: http://img.shields.io/npm/v/pompei.svg
 [npm-downloads-image]: http://img.shields.io/npm/dm/pompei.svg
 
-[gemnasium-image]: https://img.shields.io/gemnasium/GianlucaGuarini/es6-project-starter-kit.svg?style=flat-square
-[gemnasium-url]: https://gemnasium.com/GianlucaGuarini/es6-project-starter-kit
+[gemnasium-image]: https://img.shields.io/gemnasium/pompeijs/pompeijs.svg
+[gemnasium-url]: https://gemnasium.com/pompeijs/pompeijs
+
+[travis-url]:https://travis-ci.org/pompeijs/pompeijs
+[travis-image]: https://img.shields.io/travis/pompeijs/pompeijs.svg
 
 [license-url]: LICENSE
-[license-image]: http://img.shields.io/badge/license-MIT-000000.svg?style=flat-square
-
+[license-image]: http://img.shields.io/badge/license-MIT-000000.svg

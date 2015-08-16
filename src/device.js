@@ -1,4 +1,4 @@
-class PompeiError extends Error {
+export class PompeiError extends Error {
   constructor(message) {
     super();
     this.message = message;
@@ -7,7 +7,7 @@ class PompeiError extends Error {
   }
 }
 
-class WebGLSupportError extends Error {
+export class WebGLSupportError extends PompeiError {
   constructor(m) {
     super(m);
     this.message = m || 'WebGL is not supported';
@@ -16,7 +16,7 @@ class WebGLSupportError extends Error {
 
 export default class Device {
   constructor(canvas, options) {
-    if (!(canvas && canvas.getContext)) {
+    if (!(canvas && typeof canvas.getContext === 'function')) {
       throw new PompeiError('Bad Parameters');
     }
     options = options || {};

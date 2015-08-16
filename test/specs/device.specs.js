@@ -5,7 +5,10 @@ describe('Pompei.Device', function() {
 
   it('Exists', () => expect(Device).is.not.undefined);
 
-	describe('Initialization', function() {
+  describe('Initialization', function() {
+    const PompeiError = Pompei.PompeiError;
+    const WebGLSupportError = Pompei.WebGLSupportError;
+
     it("doesn't throw when given a canvas element", function() {
       const canvas = { 
         getContext: function() {
@@ -15,5 +18,19 @@ describe('Pompei.Device', function() {
 
       expect(new Device(canvas)).not.to.throw;
     });
-	});
+
+    it('throws when given a non-canvas element', function() {
+      const notACanvas = {};
+
+      expect(new Device(notACanvas)).to.throw(PompeiError);
+    });
+
+    it('throws if WebGL is not supported', function() {
+      const fakeCanvas = {
+        getContext: function() {}
+      };
+
+      expect(new Device(fakeCanvas)).to.throw(WebGLSupportError);
+    });
+  });
 });

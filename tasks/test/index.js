@@ -19,9 +19,6 @@ module.exports = function(options) {
       {
         LIBRARY_NAME: global.library,
         TRAVIS_JOB_ID: process.env.TRAVIS_JOB_ID
-        // SAUCE_USERNAME: '',
-        // SAUCE_ACCESS_KEY: '',
-        // SAUCELABS: options.saucelabs
       }
     );
 

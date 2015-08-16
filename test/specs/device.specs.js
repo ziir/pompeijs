@@ -16,13 +16,13 @@ describe('Pompei.Device', function() {
         }
       };
 
-      expect(new Device(canvas)).not.to.throw;
+      expect(() => new Device(canvas)).not.to.throw;
     });
 
     it('throws when given a non-canvas element', function() {
       const notACanvas = {};
 
-      expect(new Device(notACanvas)).to.throw(PompeiError);
+      expect(() => new Device(notACanvas)).to.throw(PompeiError);
     });
 
     it('throws if WebGL is not supported', function() {
@@ -30,7 +30,7 @@ describe('Pompei.Device', function() {
         getContext: function() {}
       };
 
-      expect(new Device(fakeCanvas)).to.throw(WebGLSupportError);
+      expect(() => new Device(fakeCanvas)).to.throw(WebGLSupportError);
     });
   });
 });

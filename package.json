@@ -12,6 +12,7 @@
     "Julien Moreau (https://github.com/julien-moreau)"
   ],
   "scripts": {
+    "start": "node make build && node make serve",
     "test": "node make test",
     "serve": "node make serve",
     "eslint": "node make eslint",

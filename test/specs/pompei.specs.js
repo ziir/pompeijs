@@ -2,5 +2,5 @@
 describe('Pompei', function() {
   'use strict';
 
-  it('Pompei exists', () => expect(window.Pompei).is.not.undefined);
+  it('Pompei exists', () => expect(Pompei).is.not.undefined);
 });

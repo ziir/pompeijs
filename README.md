@@ -9,6 +9,8 @@ Pompei is a JavaScript library.
 
 [![MIT License][license-image]][license-url]
 
+[![Gitter][gitter-image]][gitter-url]
+
 ## Tools available
 
 - [babeljs](https://babeljs.io/)
@@ -64,3 +66,6 @@ $ ./make watch # or also `$ npm run watch`
 
 [license-url]: LICENSE
 [license-image]: http://img.shields.io/badge/license-MIT-000000.svg
+
+[gitter-url]: https://gitter.im/Pompeijs/pompeijs
+[gitter-image]: https://badges.gitter.im/Join%20Chat.svg

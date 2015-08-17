@@ -5,7 +5,7 @@ export default class Device {
     if (!(canvas && typeof canvas.getContext === 'function')) {
       throw new PompeiError('Bad Parameters');
     }
-    options = options || {};
+    this._options = options || {};
 
     try {
       this._gl = (

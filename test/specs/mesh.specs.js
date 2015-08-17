@@ -8,12 +8,8 @@ describe('Pompei.Mesh', function() {
   describe('Initialization', function() {
     const PompeiError = Pompei.PompeiError;
 
-    it("doesn't throw when given a name", function() {
-      expect(() => new Mesh('Mesh1')).not.to.throw;
-    });
-
-    it('throws when given a null name', function() {
-      expect(() => new Mesh(null)).to.throw(PompeiError);
+    it("doesn't throw when given no arguments", function() {
+      expect(() => new Mesh()).not.to.throw;
     });
   });
 });

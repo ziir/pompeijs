@@ -72,9 +72,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _Mesh2 = _interopRequireDefault(_Mesh);
 
+	var _Vertex = __webpack_require__(4);
+
+	var _Vertex2 = _interopRequireDefault(_Vertex);
+
+	var _Vector = __webpack_require__(5);
+
+	var _Vector2 = _interopRequireDefault(_Vector);
+
 	exports['default'] = {
 	  Device: _Device2['default'],
 	  Mesh: _Mesh2['default'],
+	  Vertex: _Vertex2['default'],
+	  Vector: _Vector2['default'],
 
 	  PompeiError: _utilsErrors.PompeiError,
 	  WebGLSupportError: _utilsErrors.WebGLSupportError
@@ -151,7 +161,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  if (!(canvas && typeof canvas.getContext === 'function')) {
 	    throw new _utilsErrors.PompeiError('Bad Parameters');
 	  }
-	  options = options || {};
+	  this._options = options || {};
 
 	  try {
 	    this._gl = canvas.getContext('webgl', options) || canvas.getContext('experimental-webgl', options);
@@ -176,30 +186,174 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
+	var _bind = Function.prototype.bind;
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	var _utilsErrors = __webpack_require__(1);
 
-	var Mesh =
-	/**
-	 * @constructor
-	 * @param {string} name.
-	 * @param {object} options
-	 */
-	function Mesh(name, options) {
-	  _classCallCheck(this, Mesh);
+	var _Vertex = __webpack_require__(4);
 
-	  if (!name) {
-	    throw new _utilsErrors.PompeiError('Bad Parameters : Mesh needs a name');
+	var _Vertex2 = _interopRequireDefault(_Vertex);
+
+	var Mesh = (function () {
+	  /**
+	   * @constructor
+	   * @param {object} geometry.
+	   * @param {object} options
+	   */
+
+	  function Mesh(geometry, material, options) {
+	    _classCallCheck(this, Mesh);
+
+	    this._material = Object.assign({ opacity: 1, color: '#F4F4F4' }, material);
+	    this._geometry = Object.assign({
+	      position: [0, 0, 0],
+	      scale: [1, 1, 1]
+	    }, geometry);
+
+	    this._vertices = [];
+
+	    this._options = Object.assign({ name: '' }, options);
 	  }
-	  options = options || {};
 
-	  this._name = name + '';
-	};
+	  _createClass(Mesh, [{
+	    key: 'createVertex',
+	    value: function createVertex() {
+	      return this._vertices[this.addVertex(new (_bind.apply(_Vertex2['default'], [null].concat(_toConsumableArray(args))))())];
+	    }
+	  }, {
+	    key: 'addVertex',
+	    value: function addVertex(vertex) {
+	      return this._vertices.push(vertex);
+	    }
+	  }, {
+	    key: 'removeVertex',
+	    value: function removeVertex(vertex) {
+	      var idx = this._vertices.indexOf(vertex);
+	      !(idx !== -1) || array.splice(idx, 1);
+	    }
+	  }]);
+
+	  return Mesh;
+	})();
 
 	exports['default'] = Mesh;
 	module.exports = exports['default'];
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _Vector = __webpack_require__(5);
+
+	var _Vector2 = _interopRequireDefault(_Vector);
+
+	var Vertex = function Vertex(vector) {
+	  _classCallCheck(this, Vertex);
+
+	  vector instanceof vector || function () {
+	    throw new PompeiError('Bad Parameters: constructor(vector)');
+	  };
+
+	  this._vector = vector;
+	};
+
+	exports['default'] = Vertex;
+	module.exports = exports['default'];
+
+/***/ },
+/* 5 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var Vector = (function () {
+	  function Vector(position) {
+	    _classCallCheck(this, Vector);
+
+	    this.x = position[0];
+	    this.y = position[1];
+	    this.z = position[2];
+	  }
+
+	  _createClass(Vector, [{
+	    key: "addInPlace",
+	    value: function addInPlace(otherVector) {
+	      this.x += otherVector.x;
+	      this.y += otherVector.y;
+	      this.z += otherVector.z;
+
+	      return this;
+	    }
+	  }, {
+	    key: "add",
+	    value: function add(otherVector) {
+	      return new Vector(this.x + otherVector.x, this.y + otherVector.y, this.z + otherVector.z);
+	    }
+	  }, {
+	    key: "addToRef",
+	    value: function addToRef(otherVector, result) {
+	      result.x = this.x + otherVector.x;
+	      result.y = this.y + otherVector.y;
+	      result.z = this.z + otherVector.z;
+
+	      return this;
+	    }
+	  }, {
+	    key: "subtractInPlace",
+	    value: function subtractInPlace(otherVector) {
+	      this.x -= otherVector.x;
+	      this.y -= otherVector.y;
+	      this.z -= otherVector.z;
+
+	      return this;
+	    }
+	  }, {
+	    key: "subtract",
+	    value: function subtract(otherVector) {
+	      return new Vector(this.x - otherVector.x, this.y - otherVector.y, this.z - otherVector.z);
+	    }
+	  }, {
+	    key: "subtractToRef",
+	    value: function subtractToRef(otherVector, result) {
+	      result.x = this.x - otherVector.x;
+	      result.y = this.y - otherVector.y;
+	      result.z = this.z - otherVector.z;
+
+	      return this;
+	    }
+	  }]);
+
+	  return Vector;
+	})();
+
+	exports["default"] = Vector;
+	module.exports = exports["default"];
 
 /***/ }
 /******/ ])

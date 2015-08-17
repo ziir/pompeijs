@@ -1,18 +1,4 @@
-export class PompeiError extends Error {
-  constructor(message) {
-    super();
-    this.message = message;
-    this.stack = (new Error()).stack;
-    this.name = this.constructor.name;
-  }
-}
-
-export class WebGLSupportError extends PompeiError {
-  constructor(m) {
-    super(m);
-    this.message = m || 'WebGL is not supported';
-  }
-}
+import { PompeiError, WebGLSupportError } from './utils/errors';
 
 export default class Device {
   constructor(canvas, options) {

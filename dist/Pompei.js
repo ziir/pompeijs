@@ -62,15 +62,22 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _device = __webpack_require__(1);
+	var _utilsErrors = __webpack_require__(1);
 
-	var _device2 = _interopRequireDefault(_device);
+	var _Device = __webpack_require__(2);
+
+	var _Device2 = _interopRequireDefault(_Device);
+
+	var _Mesh = __webpack_require__(3);
+
+	var _Mesh2 = _interopRequireDefault(_Mesh);
 
 	exports['default'] = {
-	  Device: _device2['default'],
+	  Device: _Device2['default'],
+	  Mesh: _Mesh2['default'],
 
-	  PompeiError: _device.PompeiError,
-	  WebGLSupportError: _device.WebGLSupportError
+	  PompeiError: _utilsErrors.PompeiError,
+	  WebGLSupportError: _utilsErrors.WebGLSupportError
 	};
 	module.exports = exports['default'];
 
@@ -105,8 +112,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return PompeiError;
 	})(Error);
 
-	exports.PompeiError = PompeiError;
-
 	var WebGLSupportError = (function (_PompeiError) {
 	  _inherits(WebGLSupportError, _PompeiError);
 
@@ -120,28 +125,81 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return WebGLSupportError;
 	})(PompeiError);
 
-	exports.WebGLSupportError = WebGLSupportError;
+	exports['default'] = {
+	  PompeiError: PompeiError,
+	  WebGLSupportError: WebGLSupportError
+	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _utilsErrors = __webpack_require__(1);
 
 	var Device = function Device(canvas, options) {
 	  _classCallCheck(this, Device);
 
 	  if (!(canvas && typeof canvas.getContext === 'function')) {
-	    throw new PompeiError('Bad Parameters');
+	    throw new _utilsErrors.PompeiError('Bad Parameters');
 	  }
 	  options = options || {};
 
 	  try {
 	    this._gl = canvas.getContext('webgl', options) || canvas.getContext('experimental-webgl', options);
 	  } catch (e) {
-	    throw new WebGLSupportError();
+	    throw new _utilsErrors.WebGLSupportError();
 	  }
 
 	  if (!this._gl) {
-	    throw new WebGLSupportError();
+	    throw new _utilsErrors.WebGLSupportError();
 	  }
 	};
 
 	exports['default'] = Device;
+	module.exports = exports['default'];
+
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	var _utilsErrors = __webpack_require__(1);
+
+	var Mesh =
+	/**
+	 * @constructor
+	 * @param {string} name.
+	 * @param {object} options
+	 */
+	function Mesh(name, options) {
+	  _classCallCheck(this, Mesh);
+
+	  if (!name) {
+	    throw new _utilsErrors.PompeiError('Bad Parameters : Mesh needs a name');
+	  }
+	  options = options || {};
+
+	  this._name = name + '';
+	};
+
+	exports['default'] = Mesh;
+	module.exports = exports['default'];
 
 /***/ }
 /******/ ])

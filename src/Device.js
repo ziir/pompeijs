@@ -1,3 +1,5 @@
+import Renderer from './Renderer';
+
 import { PompeiError, WebGLSupportError } from './utils/errors';
 
 export default class Device {
@@ -19,5 +21,12 @@ export default class Device {
     if (!this._gl) {
       throw new WebGLSupportError();
     }
+
+    this._renderer = new Renderer(this._gl, options);
+    this._scene = new Scene(this._renderer, options);
+  }
+
+  getRenderer() {
+    return this._renderer;
   }
 }

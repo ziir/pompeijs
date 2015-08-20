@@ -1,10 +1,10 @@
 language: node_js
 node_js:
-   - "0.12.2"
-
+- 0.12.2
 branches:
   only:
-    - master
-
+  - master
 notifications:
-    email: false
+  email: false
+  slack:
+    secure: PYmUUBOez53lPqIKaV/DITG8fvsYUOQAvk5VOSHzuvDQZGFKI013MzV3xInL4WlMtmNxt2p+xNBmsOAqFrn8FwP2Z+FK/zpXgl+AHkOiozQiMWZDwQnQgv9Ji2XmEvElkk117TNqUHg//Hi393WHOotPjUysooJRw6sttzNmh0oWICrKCSjtXKMkofMDjvZuhPujHpyCzUUu4VpvztABotIsLt6H7u6a3yLbrXdpObqnG3lLR5twMMnZLdIoVej+VQVEt5QlS8h9imE5LYGSEpfFDBj/iuqU3HEaB/+RsRw6l+RKg4GZkRB9Zutj+JdLgX+sV2+oFcZLzKHfHNU5GmtIGA8NvdQb/NHvm6qo1N+9/5rxvQtAxzdDHw0OpW7k+q1zUllvK13M8gPLgZn/UN8yKnVzR/o0hplejwaiqOeb4UE5JKq3/SQ0ji+wY0suYryyaQRBcBJzLp+nWlWFPMmDa3U0ec3GqZNRLvO/B1CLs5ziK1Nf5RWBo0BVwaASLzngu4bYUDpzuhUJ6Cs9ZeSwJ2Uy9GXzM/wATvsl4HVjYneMJOsoRb4DO64hQc8LBIPgbJJ+fA1ENhBIzbR/1p8UJgjpdvqtSUyTPHP1aU/KO4vlTXwus1dA2wyMqH5z0beYSZE2YnTKGlKKRTYUu+1ghmbhiUI/ZVpOqTyGLc0=

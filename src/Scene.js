@@ -1,6 +1,9 @@
 import { PompeiError } from './utils/errors';
 import Renderer from './Renderer';
+<<<<<<< HEAD
 import SceneNode from './SceneNodes/SceneNode';
+=======
+>>>>>>> Clean and fix eslint errors
 
 export default class Scene {
   constructor(renderer, options) {
@@ -10,6 +13,7 @@ export default class Scene {
     options = options || {};
 
     this._renderer = renderer;
+<<<<<<< HEAD
     
     this._rootSceneNode = new SceneNode("root", this);
     this._rootSceneNode.parent = null;
@@ -45,5 +49,11 @@ export default class Scene {
     for (var i=0; i < node.children.length; i++) {
       this.drawSceneNode(node.children[i], drawChildren);
     }
+=======
+  }
+
+  get renderer () {
+    return this._renderer;
+>>>>>>> Clean and fix eslint errors
   }
 }

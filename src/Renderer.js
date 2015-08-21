@@ -10,7 +10,6 @@ export default class Renderer {
     options = options || {};
 
     // Custom functions
-
     this.onDraw = () => { };
     
     // Transformations

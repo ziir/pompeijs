@@ -1,25 +1,49 @@
 import Vertex from './Vertex';
 
 export default class VertexBuffer {
-  constructor(vertices, indices) {
-    // vertexes array of Vertex
-    this._vertices = vertices || [];
-    this._indices = indices || [];
+  constructor (vertices, indices) {
+    this.vertices = vertices;
+    this.indices = indices;
   }
 
-  merge() {}
+  get vertices () {
+    return this._vertices || [];
+  }
+
+  set vertices (vertices) {
+    if (Array.isArray(vertices)) {
+      this._vertices = vertices;
+    } else {
+      throw new PompeiError('Bad parameters: set vertices (verticies[])');
+    }
+  }
+
+  get indices () {
+    return this._indices || [];
+  }
+
+  merge () {}
 
   // Remove duplicate in Mesh
-  createVertex() {
-    return this._vertices[this.addVertex(new Vertex(...args))];
+  createVertex () {
+    return this.vertices.push(this.addVertex(new Vertex(...args)));
   }
 
-  addVertex(vertex) {
-    return this._vertices.push(vertex);
+  addVertex (vertex) {
+    return this.vertices.push(vertex);
   }
 
-  removeVertex(vertex) {
-    const idx = this._vertices.indexOf(vertex);
-    !(idx !== -1) || array.splice(idx, 1);
+  getVertex (param) {
+    return this.vertices[
+      param instanceof Vertex ? this.getVertexIndex(param) : param
+    ];
+  }
+
+  getVertexIndex (vertex) {
+    return this.vertices.indexOf(vertex);
+  }
+
+  removeVertex (vertex) {
+    this.vertices.splice(this.getVertexIndex(vertex), 1);
   }
 }

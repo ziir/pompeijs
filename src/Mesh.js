@@ -1,4 +1,4 @@
-import { PompeiError } from './utils/errors';
+// import { PompeiError } from './utils/errors';
 
 import Vertex from './Vertex';
 
@@ -20,7 +20,7 @@ export default class Mesh {
     this._options = Object.assign({ name: '' }, options);
   }
 
-  createVertex() {
+  createVertex(...args) {
     return this._vertices[this.addVertex(new Vertex(...args))];
   }
 
@@ -30,6 +30,8 @@ export default class Mesh {
 
   removeVertex(vertex) {
     const idx = this._vertices.indexOf(vertex);
-    !(idx !== -1) || array.splice(idx, 1);
+    if (idx !== -1) {
+      array.splice(idx, 1);
+    }
   }
 }

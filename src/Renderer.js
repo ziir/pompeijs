@@ -7,6 +7,6 @@ export default class Renderer {
     }
     options = options || {};
 
-    this.onDraw = function onDraw() {}
+    this.onDraw = function onDraw() {};
   }
 }

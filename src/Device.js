@@ -1,4 +1,5 @@
 import Renderer from './Renderer';
+import Scene from './Scene';
 
 import { PompeiError, WebGLSupportError } from './utils/errors';
 
@@ -9,24 +10,34 @@ export default class Device {
     }
     this._options = options || {};
 
+    this.gl = canvas.getContext('webgl', options) ||
+      canvas.getContext('experimental-webgl', options);
+
+    this._renderer = new Renderer(this.gl, options);
+    this._scene = new Scene(this.renderer, options);
+  }
+
+  get gl () {
+    return this._gl;
+  }
+
+  set gl (context) {
     try {
-      this._gl = (
-        canvas.getContext('webgl', options) ||
-        canvas.getContext('experimental-webgl', options)
-      );
+      this._gl = context;
     } catch (e) {
       throw new WebGLSupportError();
     }
 
-    if (!this._gl) {
+    if (!this.gl) {
       throw new WebGLSupportError();
     }
-
-    this._renderer = new Renderer(this._gl, options);
-    this._scene = new Scene(this._renderer, options);
   }
 
-  getRenderer() {
+  get renderer () {
     return this._renderer;
+  }
+
+  get scene () {
+    return this._scene;
   }
 }

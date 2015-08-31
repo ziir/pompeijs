@@ -1,0 +1,21 @@
+{
+	"compilerOptions": {
+		"target": "ES6",
+		"module": "commonjs"
+	},
+	"files": [
+		"index.js",
+		
+		"src/utils/errors.js",
+		
+		"src/Device.js",
+		"src/index.js",
+		"src/Matrix.js",
+		"src/Mesh.js",
+		"src/Renderer.js",
+		"src/Scene.js",
+		"src/Vector.js",
+		"src/Vertex.js",
+		"src/VertexBuffer.js"
+	]
+}

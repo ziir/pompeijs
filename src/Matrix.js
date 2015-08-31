@@ -2,7 +2,7 @@ import { PompeiError } from './utils/errors';
 import Vector3 from './Vector';
 import Core from './Core';
 
-export default class Matrix {
+export default class Matrix {  
   constructor(array) {
     this.m = new Float32Array(16);
 
@@ -99,7 +99,7 @@ export default class Matrix {
 
     return this;
   }
-
+  
   getTranslation(result) {
     if (result) {
       result.x = this.m[12];

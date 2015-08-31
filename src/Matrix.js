@@ -32,8 +32,9 @@ export default class Matrix {
   
   multiply(other) {
     // Simplify the reading by creating temporary variables
-    let m1 = this.m;
-    let m2 = other.m;
+
+    const m1 = this.m;
+    const m2 = other.m;
     var m3 = new Matrix().m;
     
     m3[0] = m1[0]*m2[0] + m1[4]*m2[1] + m1[8]*m2[2] + m1[12]*m2[3];
@@ -111,11 +112,19 @@ export default class Matrix {
   }
   
   getScale(result) {
+    let x, y, z;
     // Rotation before
-    if(this.m[1] === 0 && this.m[2] === 0 && this.m[4] === 0 && this.m[6] === 0 && this.m[8] === 0 && this.m[9] === 0) {
-      let x = this.m[0];
-      let y = this.m[5];
-      let z = this.m[10];
+    if (
+      this.m[1] === 0 &&
+      this.m[2] === 0 &&
+      this.m[4] === 0 &&
+      this.m[6] === 0 &&
+      this.m[8] === 0 &&
+      this.m[9] === 0
+    ) {
+      x = this.m[0];
+      y = this.m[5];
+      z = this.m[10];
       
       if (result) {
         result.x = x;
@@ -129,11 +138,14 @@ export default class Matrix {
     }
 
 		// We have to do the full calculation.
-    let x = this.m[0] * this.m[0] + this.m[1] * this.m[1] + this.m[2] * this.m[2];
-    let y = this.m[4] * this.m[4] + this.m[5] * this.m[5] + this.m[6] * this.m[6];
-    let z = this.m[8] * this.m[8] + this.m[9] * this.m[9] + this.m[10] * this.m[10];
+    x =
+      this.m[0] * this.m[0] + this.m[1] * this.m[1] + this.m[2] * this.m[2];
+    y =
+      this.m[4] * this.m[4] + this.m[5] * this.m[5] + this.m[6] * this.m[6];
+    z =
+      this.m[8] * this.m[8] + this.m[9] * this.m[9] + this.m[10] * this.m[10];
     
-    if (result ) {
+    if (result) {
       result.x = x;
       result.y = y;
       result.z = z;
@@ -149,19 +161,19 @@ export default class Matrix {
   }
   
   setRotation (rotation) {
-    let cr = Math.cos( rotation.x );
-		let sr = Math.sin( rotation.x );
-		let cp = Math.cos( rotation.y );
-		let sp = Math.sin( rotation.y );
-		let cy = Math.cos( rotation.z );
-		let sy = Math.sin( rotation.z );
+    const cr = Math.cos( rotation.x );
+		const sr = Math.sin( rotation.x );
+		const cp = Math.cos( rotation.y );
+		const sp = Math.sin( rotation.y );
+		const cy = Math.cos( rotation.z );
+		const sy = Math.sin( rotation.z );
 
 		this.m[0] = cp*cy;
 		this.m[1] = cp*sy;
 		this.m[2] = -sp;
 
-		let srsp = sr*sp;
-		let crsp = cr*sp;
+		const srsp = sr*sp;
+		const crsp = cr*sp;
 
 		this.m[4] = srsp*cy-cr*sy;
 		this.m[5] = srsp*sy+cr*cy;

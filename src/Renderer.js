@@ -1,4 +1,5 @@
 import { PompeiError } from './utils/errors';
+import Matrix from './Matrix.js';
 
 export default class Renderer {
   constructor(context, options) {
@@ -7,6 +8,12 @@ export default class Renderer {
     }
     options = options || {};
 
-    this.onDraw = function onDraw() {};
+    // Custom functions
+    this.onDraw = function onDraw() { };
+    
+    // Transformations
+    this._worldMatrix = Matrix.Identity();
+    this._viewMatrix = Matrix.Identity();
+    this._projectionMatrix = Matrix.Identity();
   }
 }

@@ -17,7 +17,17 @@ export default class Matrix {
   }
   
   static Identity(result) {
-    return Matrix.FromValues(1.0, 0, 0, 0, 0, 1.0, 0, 0, 0, 0, 1.0, 0, 0, 0, 0, 1.0);
+    return Matrix.FromValues(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+  }
+  
+  static FromValues () {
+    if (arguments.length != 16) {
+      throw new PompeiError('Bad parameters: must have 16 parameters as numbers. FromValues(arguments)');
+    }
+    
+    for (let i=0; i < arguments.length; i++) {
+      this.m[i] = arguments[i];
+    }
   }
   
   multiply(other) {

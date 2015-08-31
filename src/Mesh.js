@@ -1,6 +1,5 @@
-// import { PompeiError } from './utils/errors';
-
-import Vertex from './Vertex';
+import { PompeiError } from './utils/errors';
+import VertexBuffer from './VertexBuffer';
 
 export default class Mesh {
   /**
@@ -8,30 +7,34 @@ export default class Mesh {
    * @param {object} geometry.
    * @param {object} options
    */
-  constructor(geometry, material, options) {
-    this._material = Object.assign({ opacity: 1, color: '#F4F4F4' }, material);
-    this._geometry = Object.assign({
-      position: [0, 0, 0],
-      scale: [1, 1, 1]
-    }, geometry);
-
-    this._vertices = [];
-
-    this._options = Object.assign({ name: '' }, options);
-  }
-
-  createVertex(...args) {
-    return this._vertices[this.addVertex(new Vertex(...args))];
-  }
-
-  addVertex(vertex) {
-    return this._vertices.push(vertex);
-  }
-
-  removeVertex(vertex) {
-    const idx = this._vertices.indexOf(vertex);
-    if (idx !== -1) {
-      array.splice(idx, 1);
+  constructor(vertexBuffers) {
+    if (!Array.isArray(vertexBuffers)) {
+      throw new PompeiError('Bad argument: vertexBuffers must be an array. constructor(vertexBuffers)');
     }
+    
+    this._vertexBuffers = vertexBuffers;
+  }
+  
+  get vertexBuffers () {
+    return this._vertexBuffers;
+  }
+  
+  addVertexBuffer (vertexBuffer) {
+    if (!(vertexBuffer instanceof VertexBuffer) {
+      throw new PompeiError('Bad argument: vertexBuffer must be an instance of VertexBuffer. addVertexBuffer (vertexBuffer)');
+    }
+    
+    this._vertexBuffers.push(vertexBuffer);
+  }
+  
+  removeVertexBuffer (vertexBuffer) {
+    var indice = this._vertexBuffers.indexOf(vertexBuffer);
+    
+    if (indice !== -1) {
+      this._vertexBuffers.splice(indice, 1);
+      return true;
+    }
+    
+    return false;
   }
 }

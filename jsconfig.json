@@ -13,6 +13,7 @@
 		"src/Mesh/Mesh.js",
 		"src/Renderer.js",
 		"src/Scene.js",
+
 		"src/Core/Matrix.js",
 		"src/Core/Color.js",
 		"src/Core/Vector.js",

@@ -20,7 +20,7 @@ export default class Mesh {
   }
   
   addVertexBuffer (vertexBuffer) {
-    if (!(vertexBuffer instanceof VertexBuffer) {
+    if (!(vertexBuffer instanceof VertexBuffer)) {
       throw new PompeiError('Bad argument: vertexBuffer must be an instance of VertexBuffer. addVertexBuffer (vertexBuffer)');
     }
     

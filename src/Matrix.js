@@ -1,6 +1,6 @@
 import { PompeiError } from './utils/errors';
 import Vector3 from './Vector';
-import Core from './Math';
+import Core from './Core';
 
 export default class Matrix {  
   constructor(array) {

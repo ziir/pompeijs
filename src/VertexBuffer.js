@@ -1,49 +1,84 @@
+import { PompeiError } from './utils/errors';
 import Vertex from './Vertex';
 
 export default class VertexBuffer {
   constructor (vertices, indices) {
-    this.vertices = vertices;
-    this.indices = indices;
-  }
-
-  get vertices () {
-    return this._vertices || [];
-  }
-
-  set vertices (vertices) {
-    if (Array.isArray(vertices)) {
-      this._vertices = vertices;
-    } else {
-      throw new PompeiError('Bad parameters: set vertices (verticies[])');
+    
+    this._positions = [];
+    this._normals = [];
+    this._uvs = [];
+    this._indices = [];
+    
+    if (vertices && Array.isArray(vertices)) {
+      this.merge(vertices);
     }
   }
 
+  set vertices (vertices) {
+    if (!Array.isArray(vertices)) {
+      throw new PompeiError('Bad parameter: vertices is not an array. set vertices (verticies[])');
+    }
+    
+    // Reset values
+    this._positions = [];
+    this._normals = [];
+    this._uvs = [];
+    
+    // Merge
+    this.merge(vertices);
+  }
+
+  // Indices
   get indices () {
-    return this._indices || [];
+    return this._indices;
+  }
+  
+  set indices (indices) {
+    if (!Array.isArray(indices)) {
+      throw new PompeiError('Bad parameter: indices is not an array. set indices (indices)');
+    }
+    
+    this._indices = indices;
+  }
+  
+  // Positions
+  get positions () {
+    return this._positions;
+  }
+  
+  // Normals
+  get normals () {
+    return this._normals;
   }
 
-  merge () {}
-
-  // Remove duplicate in Mesh
-  createVertex () {
-    return this.vertices.push(this.addVertex(new Vertex(...args)));
+  merge (vertices) {
+    // Fill positions, normals and UVs from vertices of type Vertex
+    for (let i=0; i < vertices.length; i++) {
+      this._positions.push(vertices[i].position.x);
+      this._positions.push(vertices[i].position.y);
+      this._positions.push(vertices[i].position.z);
+      
+      if (vertices[i].normal) {
+        this._positions.push(vertices[i].normal.x);
+        this._positions.push(vertices[i].normal.y);
+        this._positions.push(vertices[i].normal.z);
+      }
+      
+      if (vertices[i].uv) {
+        this._uvs.push(vertices[i].uvs.x);
+        this._uvs.push(vertices[i].uvs.y);
+      }
+    }
   }
-
+  
   addVertex (vertex) {
-    return this.vertices.push(vertex);
-  }
-
-  getVertex (param) {
-    return this.vertices[
-      param instanceof Vertex ? this.getVertexIndex(param) : param
-    ];
-  }
-
-  getVertexIndex (vertex) {
-    return this.vertices.indexOf(vertex);
-  }
-
-  removeVertex (vertex) {
-    this.vertices.splice(this.getVertexIndex(vertex), 1);
+    if (!(vertex instanceof Vertex)) {
+      throw new PompeiError('Bad parameter: vertex is not a Vertex. addVertex (vertex)');
+    }
+    
+    // Just merge
+    this.merge([vertex]);
+    
+    return this;
   }
 }

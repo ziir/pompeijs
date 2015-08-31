@@ -1,11 +1,13 @@
 import { PompeiError } from './utils/errors';
+import Vector3 from './Vector';
+import Core from './Math';
 
 export default class Matrix {  
   constructor(array) {
     this.m = new Float32Array(16);
     
     if (array && array.length === 16) {
-      for (var i=0; i < array.length; i++) {
+      for (let i=0; i < array.length; i++) {
         this.m[i] = array[i];
       }
     }
@@ -20,8 +22,8 @@ export default class Matrix {
   
   multiply(other) {
     // Simplify the reading by creating temporary variables
-    var m1 = this.m;
-    var m2 = other.m;
+    let m1 = this.m;
+    let m2 = other.m;
     var m3 = new Matrix().m;
     
     m3[0] = m1[0]*m2[0] + m1[4]*m2[1] + m1[8]*m2[2] + m1[12]*m2[3];
@@ -48,7 +50,7 @@ export default class Matrix {
   }
   
   multiplyScalar(scalar) {
-    for (var i=0; i < 16; i++) {
+    for (let i=0; i < 16; i++) {
       this.m[i] *= scalar;
     }
     
@@ -56,7 +58,7 @@ export default class Matrix {
   }
   
   plus(other) {
-    for (var i=0; i < 16; i++) {
+    for (let i=0; i < 16; i++) {
       this.m[i] += other.m[i];
     }
     
@@ -64,7 +66,7 @@ export default class Matrix {
   }
   
   minus(other) {
-    for (var i=0; i < 16; i++) {
+    for (let i=0; i < 16; i++) {
       this.m[i] -= other.m[i];
     }
     
@@ -79,7 +81,7 @@ export default class Matrix {
       return result;
     }
     
-    return new Vector([this.m[12], this.m[13], this.m[14]]);
+    return new Vector3([this.m[12], this.m[13], this.m[14]]);
   }
   
   setTranslation(translation) {
@@ -99,11 +101,144 @@ export default class Matrix {
   }
   
   getScale(result) {
-    if (result) {
+    // Rotation before
+    if(this.m[1] === 0 && this.m[2] === 0 && this.m[4] === 0 && this.m[6] === 0 && this.m[8] === 0 && this.m[9] === 0) {
+      let x = this.m[0];
+      let y = this.m[5];
+      let z = this.m[10];
+      
+      if (result) {
+        result.x = x;
+        result.y = y;
+        result.z = z;
+        
+        return result;
+      }
+      
+      return new Vector3([x, y, z]);
+    }
+
+		// We have to do the full calculation.
+    let x = this.m[0] * this.m[0] + this.m[1] * this.m[1] + this.m[2] * this.m[2];
+    let y = this.m[4] * this.m[4] + this.m[5] * this.m[5] + this.m[6] * this.m[6];
+    let z = this.m[8] * this.m[8] + this.m[9] * this.m[9] + this.m[10] * this.m[10];
+    
+    if (result ) {
+      result.x = x;
+      result.y = y;
+      result.z = z;
       
       return result;
     }
     
-    return null;
+		return new Vector3([x, y, z]);
+  }
+  
+  setRotationDegrees (rotation) {
+    this.setRotation(rotation * Core.DegToRad());
+  }
+  
+  setRotation (rotation) {
+    let cr = Math.cos( rotation.x );
+		let sr = Math.sin( rotation.x );
+		let cp = Math.cos( rotation.y );
+		let sp = Math.sin( rotation.y );
+		let cy = Math.cos( rotation.z );
+		let sy = Math.sin( rotation.z );
+
+		this.m[0] = cp*cy;
+		this.m[1] = cp*sy;
+		this.m[2] = -sp;
+
+		let srsp = sr*sp;
+		let crsp = cr*sp;
+
+		this.m[4] = srsp*cy-cr*sy;
+		this.m[5] = srsp*sy+cr*cy;
+		this.m[6] = sr*cp;
+
+		this.m[8] = crsp*cy+sr*sy;
+		this.m[9] = crsp*sy-sr*cy;
+		this.m[10] = cr*cp;
+    
+		return this;
+  }
+  
+  getRotationDegrees (result) {
+    result = this.getRotation(result);
+    
+    result.x *= Core.RadToDeg();
+    result.y *= Core.RadToDeg();
+    result.z *= Core.RadToDeg();
+    
+    return result;
+  }
+  
+  getRotation (result) {
+    let mat = this.m;
+		let scale = this.getScale();
+    
+		// Check negative scale
+		if (scale.y < 0.0 && scale.z < 0.0) {
+			scale.y = -scale.Y;
+			scale.z = -scale.Z;
+		}
+		else if (scale.x < 0.0 && scale.z < 0.0)
+		{
+			scale.x = -scale.x;
+			scale.z = -scale.z;
+		}
+		else if (scale.x < 0.0 && scale.y < 0.0)
+		{
+			scale.x = -scale.x;
+			scale.y = -scale.y;
+		}
+    
+		let invScale = new Vector3([1.0 / scale.x, 1.0 / scale.y, 1.0 / scale.z]);
+
+		let Y = -Math.asin(Core.Clamp(mat[2] * invScale.x, -1.0, 1.0));
+		let C = Math.cos(Y);
+		Y *=  Core.RadToDeg();
+
+		let rotx, roty, X, Z;
+
+		if (C != 0.0) {
+			let invC = 1.0 / C;
+			rotx = mat[10] * invC * invScale.z;
+			roty = mat[6] * invC * invScale.y;
+			X = Math.atan2(roty, rotx) * Core.RadToDeg();
+			rotx = mat[0] * invC * invScale.x;
+			roty = mat[1] * invC * invScale.x;
+			Z = Math.atan2(roty, rotx) * Core.RadToDeg();
+		}
+		else {
+			X = 0.0;
+			rotx = mat[5] * invScale.y;
+			roty = -mat[4] * invScale.y;
+			Z = Math.atan2(roty, rotx) * Core.RadToDeg();
+		}
+
+		// fix values that get below zero
+		if (X < 0.0) {
+      X += 360.0;
+    }
+    
+		if (Y < 0.0) {
+      Y += 360.0;
+    }
+    
+		if (Z < 0.0) {
+      Z += 360.0;
+    }
+
+    if (result) {
+      result.x = X;
+      result.y = Y;
+      result.z = Z;
+      
+      return result;
+    }
+
+		return new Vector3([X, Y, Z]);
   }
 }

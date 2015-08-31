@@ -16,6 +16,7 @@
 		"src/Scene.js",
 		"src/Vector.js",
 		"src/Vertex.js",
-		"src/VertexBuffer.js"
+		"src/VertexBuffer.js",
+		"src/Core.js"
 	]
 }

@@ -10,7 +10,7 @@ export default class Renderer {
 
     // Custom functions
     this.onDraw = function onDraw() { };
-    
+
     // Transformations
     this._worldMatrix = Matrix.Identity();
     this._viewMatrix = Matrix.Identity();

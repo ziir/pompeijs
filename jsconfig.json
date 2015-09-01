@@ -10,15 +10,16 @@
 		
 		"src/Device.js",
 		"src/index.js",
-		"src/Matrix.js",
-		"src/Mesh.js",
+		"src/Mesh/Mesh.js",
 		"src/Renderer.js",
 		"src/Scene.js",
-		"src/Vector.js",
-		"src/Vertex.js",
-		"src/VertexBuffer.js",
-		"src/Core.js",
-		"src/SceneNode.js",
-		"src/MeshSceneNode.js"
+		"src/Core/Matrix.js",
+		"src/Core/Color.js",
+		"src/Core/Vector.js",
+		"src/Core/Vertex.js",
+		"src/Core/VertexBuffer.js",
+		"src/Core/Core.js",
+		"src/SceneNodes/SceneNode.js",
+		"src/SceneNodes/MeshSceneNode.js"
 	]
 }

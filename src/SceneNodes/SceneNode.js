@@ -1,5 +1,5 @@
-import { PompeiError } from './utils/errors';
-import Vector3 from './Vector';
+import { PompeiError } from '../utils/errors';
+import Vector3 from '../Core/Vector';
 
 export default class SceneNode {
   constructor (name, scene, parent) {

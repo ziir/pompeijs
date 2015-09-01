@@ -8,7 +8,12 @@ export default class VertexBuffer {
     this._normals = [];
     this._uvs = [];
     this._indices = [];
-
+    
+    this._vertexBuffer = null;
+    this._indexBuffer = null;
+    this._normalBuffer = null;
+    this._uvBuffer = null;
+    
     if (vertices && Array.isArray(vertices)) {
       this.merge(vertices);
     }
@@ -81,4 +86,5 @@ export default class VertexBuffer {
 
     return this;
   }
+  
 }

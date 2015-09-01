@@ -10,7 +10,7 @@ export default class Scene {
 
     this._renderer = renderer;
   }
-
+  
   get renderer () {
     return this._renderer;
   }

@@ -1,7 +1,7 @@
-import { PompeiError } from './utils/errors';
+import { PompeiError } from '../utils/errors';
 import SceneNode from './SceneNode';
-import Vector3 from './Vector';
-import Mesh from './Mesh.js';
+import Vector3 from '../Core/Vector';
+import Mesh from '../Mesh/Mesh.js';
 
 export class MeshSceneNode extends SceneNode {
   constructor (name, scene, parent, mesh) {

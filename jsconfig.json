@@ -26,5 +26,6 @@
 		"src/Animators/Animator.js",
 		
 		"src/Material/Material.js"
+		"src/SceneNodes/MeshSceneNode.js"
 	]
 }

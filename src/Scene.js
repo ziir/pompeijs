@@ -51,7 +51,7 @@ export default class Scene {
     }
 =======
   }
-
+  
   get renderer () {
     return this._renderer;
 >>>>>>> Clean and fix eslint errors

@@ -8,32 +8,18 @@ export default class Device {
     if (!(canvas && typeof canvas.getContext === 'function')) {
       throw new PompeiError('Bad Parameters');
     }
-
+    
+    let context = canvas.getContext('webgl', options) || canvas.getContext('experimental-webgl', options);
+    if (!context) {
+      throw new PompeiError('Cannot get WebGL context. constructor (canvas, options)');
+    }
+    
     this._options = options || {};
 
-    this.gl = canvas.getContext('webgl', options) ||
-      canvas.getContext('experimental-webgl', options);
-
-    this._renderer = new Renderer(this.gl, options);
+    this._renderer = new Renderer(context, options);
     this._scene = new Scene(this.renderer, options);
   }
-
-  get gl () {
-    return this._gl;
-  }
-
-  set gl (context) {
-    try {
-      this._gl = context;
-    } catch (e) {
-      throw new WebGLSupportError();
-    }
-
-    if (!this.gl) {
-      throw new WebGLSupportError();
-    }
-  }
-
+  
   get renderer () {
     return this._renderer;
   }

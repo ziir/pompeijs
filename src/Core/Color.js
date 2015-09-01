@@ -6,6 +6,7 @@ export default class Color {
 		this.g = 0.0;
 		this.b = 0.0;
 		this.a = 0.0;
+
 		
 		if (other) {
 			if (!(other instanceof Color)) {
@@ -52,5 +53,39 @@ export default class Color {
 		this.g *= other.g;
 		this.b *= other.b;
 		this.a *= other.a;
+
+		return [this._r, this._g, this._b, this._a];
+	}
+	
+	get r () {
+		return this._r;
+	}
+	
+	set r (r) {
+		this._r = r;
+	}
+	
+	get g () {
+		return this._g;
+	}
+	
+	set g (g) {
+		this._g = g;
+	}
+	
+	get b () {
+		return this._b;
+	}
+	
+	set b (b) {
+		this._b = b;
+	}
+	
+	get a () {
+		return this._a;
+	}
+	
+	set a (a) {
+		this._a = a;
 	}
 }

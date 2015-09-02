@@ -1,5 +1,6 @@
 import { PompeiError } from '../utils/errors';
 import Vector3 from '../Core/Vector';
+import Matrix from '../Core/Matrix';
 
 export default class SceneNode {
 	constructor (name, scene, parent) {
@@ -106,5 +107,21 @@ export default class SceneNode {
 	
 	set scale (scale) {
 		this._scale = this._scale;
+	}
+	
+	get worldMatrix () {
+		var world = new Matrix();
+		
+		world.setScale(this._scale);
+		world.setRotationDegrees(this._rotation);
+		world.setTranslation(this._position);
+		
+		return world;
+	}
+	
+	set worldMatrix (worldMatrix) {
+		worldMatrix.getScale(this._scale);
+		worldMatrix.getRotationDegrees(this._rotation);
+		worldMatrix.getTranslation(this._position);
 	}
 }

@@ -27,8 +27,16 @@ export class MeshSceneNode extends SceneNode {
 			return;
 		}
 		
+		// Transformations
+		this._renderer.worldMatrix.setScale(this._scale);
+		this._renderer.worldMatrix.setRotation(this._rotation);
+		this._renderer.worldMatrix.setTranslation(this._position);
+		
+		// Draw buffers
 		for (let i=0; i < this._mesh.vertexBuffers.length; i++) {
 			let vertexBuffer = this._mesh.vertexBuffers[i];
+			
+			this._renderer.setMaterial(vertexBuffer.material);
 			this._renderer.drawBuffer(vertexBuffer);
 		}
 	}

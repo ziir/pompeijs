@@ -3,7 +3,6 @@ import Matrix from './Core/Matrix.js';
 import VertexBuffer from './Core/VertexBuffer';
 import Material from './Material/Material';
 
-
 export default class Renderer {
   constructor(context, options) {
     this._gl = context;
@@ -211,10 +210,53 @@ export default class Renderer {
     // Measure fps here
   }
 
-  drawBuffer(vertexBuffer) {
+  drawBuffer (vertexBuffer) {
     
   }
-
+  
+  setMaterial (material) {
+    if (!material || !material.programReady) {
+      this._currentMaterial = this._defaultMaterial;
+    }
+    else {
+      this._currentMaterial = material;
+    }
+    
+    this._gl.useProgram(material.program);
+  }
+  
+  createProgram (vertexCode, pixelCode, attributes, uniforms, defines) {
+    let vertex = this._gl.createShader(this._gl.VERTEX_SHADER);
+    this._gl.shaderSource(vertex, defines + vertexCode);
+    this._gl.compileShader(vertex);
+    
+    if (!this._gl.getShaderParameter(vertex, this._gl.COMPILE_STATUS)) {
+      throw new PompeiError('Cannot compile vertex shader: ' + this._gl.getShaderInfoLog(vertex));
+    }
+    
+    let pixel = this._gl.createShader(this._gl.PIXEL_SHADER);
+    this._gl.shaderSource(pixel, defines + pixelCode);
+    this._gl.compileShader(pixel);
+    
+    if (!this._gl.getShaderParameter(pixel, this._gl.COMPILE_STATUS)) {
+      throw new PompeiError('Cannot compile pixel shader: ' + this._gl.getShaderInfoLog(pixel));
+    }
+    
+    let program = this._gl.createProgram();
+    this._gl.attachShader(program, vertex);
+    this._gl.attachShader(program, pixel);
+    this._gl.linkProgram(program);
+    
+    if (!this._gl.getProgramParameter(program, this._gl.LINK_STATUS)) {
+      throw new PompeiError('Cannot link vertex and pixel programs: ' + this._gl.getProgramInfoLog(program));
+    }
+    
+    this._gl.deleteShader(vertex);
+    this._gl.deleteShader(pixel);
+    
+    return program;
+  }
+  
   createVertexBuffer(vertexBuffer) {
     if (!(vertexBuffer instanceof VertexBuffer)) {
       throw new PompeiError('Bad argument: vertexBuffer must be a VertexBuffer. createVertexBuffer (vertexBuffer)');
@@ -253,6 +295,11 @@ export default class Renderer {
     this._gl.deleteBuffer(vertexBuffer._indexBuffer);
     this._gl.deleteBuffer(vertexBuffer._normalBuffer);
     this._gl.deleteBuffer(vertexBuffer._uvBuffer);
+  }
+  
+  // Programs
+  get defaultMaterial () {
+    return this._defaultMaterial;
   }
   
   // Transformations

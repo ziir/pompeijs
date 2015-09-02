@@ -14,4 +14,12 @@ export default class Scene {
   get renderer () {
     return this._renderer;
   }
+  
+  draw () {
+    if (!this._renderer.defaultMaterial.programReady) {
+      return;
+    }
+    
+    // Draw everything here
+  }
 }

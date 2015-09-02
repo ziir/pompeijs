@@ -9,6 +9,8 @@ export default class VertexBuffer {
     this._uvs = [];
     this._indices = [];
     
+    this._material = null;
+    
     this._vertexBuffer = null;
     this._indexBuffer = null;
     this._normalBuffer = null;
@@ -18,6 +20,14 @@ export default class VertexBuffer {
       this.merge(vertices);
     }
   }
+  
+  get material () {
+		return this._material;
+	}
+	
+	set material (material) {
+		this._material = material;
+	}
 
   set vertices (vertices) {
     if (!Array.isArray(vertices)) {

@@ -12,4 +12,22 @@ export default class Core {
   static DegToRad () {
     return Math.PI / 180.0;
   }
+
+  static LoadFile (url, asArrayBuffer, onLoadedFile) {
+    var request = new XMLHttpRequest();
+    request.open('GET', url, true);
+
+    if (asArrayBuffer) {
+      request.responseType = 'arrayBuffer';
+    }
+
+    request.onreadystatechange = () => {
+      if (request.readyState === 4 && request.status === 200) {
+        onLoadedFile(asArrayBuffer ? request.response : request.responseText);
+      }
+      else {
+        throw new PompeiError('Cannot load file at: ' + url + ' => ' + request.status);
+      }
+    };
+  }
 }

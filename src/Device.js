@@ -27,4 +27,12 @@ export default class Device {
   get scene () {
     return this._scene;
   }
+  
+  get pointerX () {
+    return 0;
+  }
+  
+  get pointerY () {
+    return 0;
+  }
 }

@@ -42,7 +42,9 @@ export default class Mesh {
   
   finish () {
     for (let i=0; i < this._vertexBuffers.length; i++) {
-      
+      let vertexBuffer = this._vertexBuffers[i];
+      this._renderer.createVertexBuffer(vertexBuffer);
+      this._renderer.createIndexBuffer(vertexBuffer);
     }
   }
 }

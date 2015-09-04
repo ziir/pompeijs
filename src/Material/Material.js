@@ -72,7 +72,6 @@ export default class Material {
     var worldViewProjection = new Matrix();
     worldViewProjection.multiply(renderer.projectionMatrix).multiply(renderer.viewMatrix).multiply(renderer.worldMatrix);
     renderer.setMatrix(worldViewProjection);
-    
   }
   
   // To be replaced

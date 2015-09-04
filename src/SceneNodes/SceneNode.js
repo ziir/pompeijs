@@ -2,8 +2,9 @@ import { PompeiError } from '../utils/errors';
 import Vector3 from '../Core/Vector';
 import Matrix from '../Core/Matrix';
 
+import Animator from '../Animators/Animator';
+
 export default class SceneNode {
-<<<<<<< HEAD
   constructor (name, scene, parent) {
     if (!name || !scene) {
       throw new PompeiError(
@@ -126,5 +127,29 @@ export default class SceneNode {
     worldMatrix.getScale(this._scale);
     worldMatrix.getRotationDegrees(this._rotation);
     worldMatrix.getTranslation(this._position);
+  }
+
+  // Animators
+  get animators () {
+    return this._animators;
+  }
+
+  addAnimator (animator) {
+    if (!(animator instanceof Animator)) {
+      throw new PompeiError('Bad parameter: animator must be an Animator. addAnimator (animator)');
+    }
+
+    this._animators.push(animator);
+  }
+
+  removeAnimator (animator) {
+    let index = this._animators.indexOf(animator);
+    
+    if (index !== -1) {
+      this._animators.splice(index, 1);
+      return true;
+    }
+
+    return false;
   }
 }

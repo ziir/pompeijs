@@ -15,7 +15,7 @@ export default class Vertex {
     if (!(uv instanceof Vector2)) {
       throw new PompeiError('Bad Parameter: uv is not a Vector2. constructor(position, normal, uv)');
     }
-
+    
     this._position = position;
     this._normal = normal;
     this._uv = uv;

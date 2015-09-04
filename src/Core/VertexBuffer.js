@@ -1,5 +1,6 @@
 import { PompeiError } from './utils/errors';
 import Vertex from './Vertex';
+import Material from '../Material/Material';
 
 export default class VertexBuffer {
   constructor (vertices, indices) {
@@ -8,26 +9,32 @@ export default class VertexBuffer {
     this._normals = [];
     this._uvs = [];
     this._indices = [];
-    
+
     this._material = null;
-    
+
     this._vertexBuffer = null;
     this._indexBuffer = null;
     this._normalBuffer = null;
     this._uvBuffer = null;
-    
+
+    this._indexIs32Bits = false;
+
     if (vertices && Array.isArray(vertices)) {
       this.merge(vertices);
     }
   }
-  
+
   get material () {
-		return this._material;
-	}
-	
-	set material (material) {
-		this._material = material;
-	}
+    return this._material;
+  }
+
+  set material (material) {
+    if (material !== null && !(material instanceof Material)) {
+      throw new PompeiError('Bad parameter. Cannot set a material that is not a Material or null. set material (material)');
+    }
+    
+    this._material = material;
+  }
 
   set vertices (vertices) {
     if (!Array.isArray(vertices)) {
@@ -56,6 +63,14 @@ export default class VertexBuffer {
     this._indices = indices;
   }
 
+  get isIndex32Bits () {
+    return this._indexIs32Bits;
+  }
+
+  set indexIs32Bits (is32Bits) {
+    this._indexIs32Bits = is32Bits;
+  }
+
   // Positions
   get positions () {
     return this._positions;
@@ -66,6 +81,12 @@ export default class VertexBuffer {
     return this._normals;
   }
 
+  // UVs
+  get uvs () {
+    return this._uvs;
+  }
+
+  // Methods
   merge (vertices) {
     // Fill positions, normals and UVs from vertices of type Vertex
     for ( let i = 0; i < vertices.length; i++ ) {
@@ -96,5 +117,33 @@ export default class VertexBuffer {
 
     return this;
   }
-  
+
+  // Attributes
+  get a_position () {
+    return this._vertexBuffer;
+  }
+
+  get a_position_stride () {
+    return 3;
+  }
+
+  get a_normal () {
+    return this._normalBuffer;
+  }
+
+  get a_normal_stride () {
+    return 3;
+  }
+
+  get a_uv () {
+    return this._uvBuffer;
+  }
+
+  get a_uv_stride () {
+    return 2;
+  }
+
+  get indexBuffer () {
+    return this._indexBuffer;
+  }
 }

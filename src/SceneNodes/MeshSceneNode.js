@@ -37,7 +37,7 @@ export class MeshSceneNode extends SceneNode {
     // Draw buffers
     for (let i=0; i < this._mesh.vertexBuffers.length; i++) {
       let vertexBuffer = this._mesh.vertexBuffers[i];
-      
+
       this._renderer.setMaterial(vertexBuffer.material);
       this._renderer.drawBuffer(vertexBuffer);
     }

@@ -47,6 +47,32 @@ export default class Renderer {
   }
 
   drawBuffer (vertexBuffer) {
+    // Bind attributes
+    let program = this._currentMaterial.program;
+    
+    for (let i = 0; i < this._currentMaterial.attributes.length; i++) {
+      try {
+        let location = this._gl.getAttribLocation(program, this._currentMaterial.attributes[i]);
+        
+        if (location >= 0) {
+          let stride = vertexBuffer[this._currentMaterial.attributes[i] + "_stride"];
+          
+          this._gl.bindBuffer(this._gl.ARRAY_BUFFER, vertexBuffer[this._currentMaterial.attributes[i]]);
+          this._gl.vertexAttribPointer(location, stride, this._gl.FLOAT, false, stride * 4, 0);
+        }
+      }
+      catch(e) {
+        // Catch silently
+      }
+    }
+    
+    // Bind indices
+    this._gl.bindBuffer(this._gl.ELEMENT_ARRAY_BUFFER, vertexBuffer.indexBuffer);
+    
+    // Draw
+    let is32Bits = vertexBuffer.indexIs32Bits;
+    this._gl.drawElements(this._gl.TRIANGLES, vertexBuffer.indices.length, is32Bits ? this._gl.UNSIGNED_INT : this._gl.UNSIGNED_SHORT, is32Bits ? 4 : 2);
+    
     
   }
   
@@ -97,14 +123,26 @@ export default class Renderer {
     if (!(vertexBuffer instanceof VertexBuffer)) {
       throw new PompeiError('Bad argument: vertexBuffer must be a VertexBuffer. createVertexBuffer (vertexBuffer)');
     }
-
-    let vbo = this._gl.createBuffer();
-
-    this._gl.bindBuffer(this._gl.ARRAY_BUFFER, vbo);
-    this._gl.bufferData(this._gl.ARRAY_BUFFER, new Float32Array(vertexBuffer.positions), this._gl.STATIC_DRAW);
-    this._gl.bindBuffer(this._gl.ARRAY_BUFFER, null);
-
-    vertexBuffer._vertexBuffer = vbo;
+    
+    let onBindBuffer = (buffer, type) => {
+      let vbo = this._gl.createBuffer();
+      
+      this._gl.bindBuffer(type, vbo);
+      this._gl.bufferData(type, new Float32Array(buffer), this._gl.STATIC_DRAW);
+      this._gl.bindBuffer(type, null);
+      
+      return vbo;
+    };
+    
+    if (vertexBuffer.positions.length > 0) {
+      vertexBuffer._vertexBuffer = onBindBuffer(vertexBuffer.positions, this._gl.ARRAY_BUFFER);
+    }
+    if (vertexBuffer.normals.length > 0) {
+      vertexBuffer._normalBuffer = onBindBuffer(vertexBuffer.normals, this._gl.ARRAY_BUFFER);
+    }
+    if (vertexBuffer.uvs.length > 0) {
+      vertexBuffer._uvBuffer = onBindBuffer(vertexBuffer.uvs, this._gl.ARRAY_BUFFER);
+    }
   }
 
   createIndexBuffer (vertexBuffer) {
@@ -124,6 +162,7 @@ export default class Renderer {
     this._gl.bindBuffer(this._gl.ELEMENT_ARRAY_BUFFER, null);
 
     vertexBuffer._indices = vbo;
+    vertexBuffer.indexIs32Bits = is32Bits;
   }
   
   removeBuffer (vertexBuffer) {

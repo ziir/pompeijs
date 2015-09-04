@@ -82,10 +82,6 @@ export default class Vector3 {
     const x = this.x - other.x;
     const y = this.y - other.y;
     const z = this.z - other.z;
-
-    let x = this.x - other.x;
-    let y = this.y - other.y;
-    let z = this.z - other.z;
     
     return x * x + y * y + z * z;
   }
@@ -163,14 +159,14 @@ export class Vector2 {
   minus (other) {
     this.x -= other.x;
     this.y -= other.y;
-    
+
     return this;
   }
 
   multiply (other) {
     this.x *= other.x;
     this.y *= other.y;
-    
+
     return this;
   }
   

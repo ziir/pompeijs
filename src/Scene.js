@@ -46,8 +46,4 @@ export default class Scene {
       this.drawSceneNode(node.children[i], drawChildren);
     }
   }
-  
-  get renderer () {
-    return this._renderer;
-  }
 }

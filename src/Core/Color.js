@@ -6,7 +6,6 @@ export default class Color {
 		this.g = 0.0;
 		this.b = 0.0;
 		this.a = 0.0;
-
 		
 		if (other) {
 			if (!(other instanceof Color)) {

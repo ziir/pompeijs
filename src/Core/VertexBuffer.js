@@ -23,14 +23,6 @@ export default class VertexBuffer {
       this.merge(vertices);
     }
   }
-  
-  get material () {
-		return this._material;
-	}
-	
-	set material (material) {
-		this._material = material;
-	}
 
   get material () {
     return this._material;
@@ -88,7 +80,7 @@ export default class VertexBuffer {
   get normals () {
     return this._normals;
   }
-
+  
   // UVs
   get uvs () {
     return this._uvs;

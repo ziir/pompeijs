@@ -3,7 +3,7 @@ import SceneNode from './SceneNode';
 import Vector3 from '../Core/Vector';
 import Mesh from '../Mesh/Mesh.js';
 
-export class MeshSceneNode extends SceneNode {
+export default class MeshSceneNode extends SceneNode {
 	constructor (name, scene, parent, mesh) {
 		super(name, scene, parent);
 		

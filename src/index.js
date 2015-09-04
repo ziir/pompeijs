@@ -4,6 +4,7 @@ import Renderer from './Renderer';
 import Scene from './Scene';
 
 import Matrix from './Core/Matrix';
+
 import { Vector2, Vector3 } from './Core/Vector';
 
 import Vertex from './Core/Vertex';

@@ -2,26 +2,31 @@ import { PompeiError } from '../utils/errors';
 import Vector3 from '../Core/Vector';
 import Matrix from '../Core/Matrix';
 
+import Animator from '../Animators/Animator';
+
 export default class SceneNode {
 	constructor (name, scene, parent) {
 		if (!name || !scene) {
 			throw new PompeiError('Bad parameters: name and scene must be provided. constructor(name, scene, parent)');
 		}
 		
-		this._name = name;
-		this._isVisible = true;
+		this.name = name;
+		this.isVisible = true;
 		
 		this._scene = scene;
 		this._renderer = scene.renderer;
 		
 		// Parenting
-		this._parent = scene.rootNode;
-		this._children = [];
+		this._parent = parent instanceof SceneNode ? parent : scene.rootSceneNode;
+		this.children = [];
 		
 		// Transformations
 		this._position = new Vector3();
 		this._rotation = new Vector3();
 		this._scale = new Vector3();
+		
+		// Animators
+		this._animators = [];
 	}
 	
 	// To be overrided
@@ -52,14 +57,6 @@ export default class SceneNode {
 		}
 	}
 	
-	get isVisible () {
-		return this._isVisible;
-	}
-	
-	set isVisible (visible) {
-		this._isVisible = visible;
-	}
-	
 	get parent () {
 		return this._parent;
 	}
@@ -73,23 +70,15 @@ export default class SceneNode {
 		}
 	}
 	
-	get children () {
-		return this._children;
-	}
-	
-	get name () {
-		return this._name;
-	}
-	
-	set name (name) {
-		this._name = name;
-	}
-	
 	get position () {
 		return this._position;
 	}
 	
 	set position (position) {
+		if (!(position instanceof Vector3)) {
+			throw new PompeiError('Bad parameter. Position must be a Vector3. set position (position)');
+		}
+		
 		this._position = position;
 	}
 	
@@ -98,6 +87,10 @@ export default class SceneNode {
 	}
 	
 	set rotation (rotation) {
+		if (!(rotation instanceof Vector3)) {
+			throw new PompeiError('Bad parameter. Rotation must be a Vector3. set rotation (rotation)');
+		}
+		
 		this._rotation = rotation;
 	}
 	
@@ -106,9 +99,14 @@ export default class SceneNode {
 	}
 	
 	set scale (scale) {
+		if (!(scale instanceof Vector3)) {
+			throw new PompeiError('Bad parameter. Scale must be a Vector3. set scale (scale)');
+		}
+		
 		this._scale = this._scale;
 	}
 	
+	// Transformations
 	get worldMatrix () {
 		var world = new Matrix();
 		
@@ -123,5 +121,29 @@ export default class SceneNode {
 		worldMatrix.getScale(this._scale);
 		worldMatrix.getRotationDegrees(this._rotation);
 		worldMatrix.getTranslation(this._position);
+	}
+	
+	// Animators
+	get animators () {
+		return this._animators;
+	}
+	
+	addAnimator (animator) {
+		if (!(animator instanceof Animator)) {
+			throw new PompeiError('Bad parameter: animator must be an Animator. addAnimator (animator)');
+		}
+		
+		this._animators.push(animator);
+	}
+	
+	removeAnimator (animator) {
+		let index = this._animators.indexOf(animator);
+		
+		if (index !== -1) {
+			this._animators.splice(index, 1);
+			return true;
+		}
+		
+		return false;
 	}
 }

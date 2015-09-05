@@ -32,7 +32,7 @@ export default class VertexBuffer {
     if (material !== null && !(material instanceof Material)) {
       throw new PompeiError('Bad parameter. Cannot set a material that is not a Material or null. set material (material)');
     }
-    
+
     this._material = material;
   }
 
@@ -80,7 +80,7 @@ export default class VertexBuffer {
   get normals () {
     return this._normals;
   }
-  
+
   // UVs
   get uvs () {
     return this._uvs;

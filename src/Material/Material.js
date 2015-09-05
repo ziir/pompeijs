@@ -17,31 +17,31 @@ export default class Material {
     if (uniforms && !Array.isArray(uniforms)) {
       throw new PompeiError('Bad parameter: uniforms must be an array of string. constructor (renderer, vertexPath, pixelPath, attributes, uniforms)');
     }
-    
+
     this._renderer = renderer;
-    
+
     this._defines = defines ? defines : [];
     this._vertexPath = vertexPath;
     this._pixelPath = pixelPath;
     this._attributes = attributes;
     this._uniforms = uniforms ? uniforms : [];
-    
+
     this._program = null;
     this._programReady = false;
   }
-  
+
   get renderer () {
     return this._renderer;
   }
-  
+
   get program () {
     return this._program;
   }
-  
+
   get defines () {
     return this._defines;
   }
-  
+
   get attributes () {
     return this._attributes;
   }

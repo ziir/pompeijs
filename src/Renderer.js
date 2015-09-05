@@ -1,7 +1,7 @@
 import { PompeiError } from './utils/errors';
-import Matrix from './Matrix.js';
-import VertexBuffer from 'Core/VertexBuffer';
-import Material from 'Material/Material';
+import Matrix from './Core/Matrix.js';
+import VertexBuffer from './Core/VertexBuffer';
+import Material from './Material/Material';
 
 export default class Renderer {
   constructor(context, options) {
@@ -10,7 +10,6 @@ export default class Renderer {
     options = options || {};
 
     // Custom functions
-
     this.onDraw = () => { };
     
     // Transformations
@@ -71,9 +70,7 @@ export default class Renderer {
     
     // Draw
     let is32Bits = vertexBuffer.indexIs32Bits;
-    this._gl.drawElements(this._gl.TRIANGLES, vertexBuffer.indices.length, is32Bits ? this._gl.UNSIGNED_INT : this._gl.UNSIGNED_SHORT, is32Bits ? 4 : 2);
-    
-    
+    this._gl.drawElements(this._gl.TRIANGLES, vertexBuffer.indices.length, is32Bits ? this._gl.UNSIGNED_INT : this._gl.UNSIGNED_SHORT, is32Bits ? 4 : 2);    
   }
   
   setMaterial (material) {

@@ -13,6 +13,7 @@ export default class Core {
     return Math.PI / 180.0;
   }
 
+  // TO REVIEW
   static LoadFile (url, asArrayBuffer, onLoadedFile) {
     var request = new XMLHttpRequest();
     request.open('GET', url, true);
@@ -24,8 +25,7 @@ export default class Core {
     request.onreadystatechange = () => {
       if (request.readyState === 4 && request.status === 200) {
         onLoadedFile(asArrayBuffer ? request.response : request.responseText);
-      }
-      else {
+      } else {
         throw new PompeiError('Cannot load file at: ' + url + ' => ' + request.status);
       }
     };

@@ -10,7 +10,7 @@ export default class Scene {
     options = options || {};
 
     this._renderer = renderer;
-    
+
     this._rootSceneNode = new SceneNode("root", this);
     this._rootSceneNode.parent = null;
     
@@ -19,29 +19,29 @@ export default class Scene {
   get renderer () {
     return this._renderer;
   }
-  
+
   drawAll () {
     if (!this._renderer.defaultMaterial.programReady) {
       return;
     }
-    
+
     // Sort scene nodes here
-    
+
     // Render
     this.drawSceneNode(this._rootSceneNode, true);
   }
-  
+
   drawSceneNode (node, drawChildren) {
     if (!drawChildren) {
       drawChildren = false;
     }
-    
+
     node.render();
-    
+
     if (!drawChildren) {
       return;
     }
-    
+
     for (var i=0; i < node.children.length; i++) {
       this.drawSceneNode(node.children[i], drawChildren);
     }

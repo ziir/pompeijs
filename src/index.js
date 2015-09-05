@@ -4,15 +4,15 @@ import Renderer from './Renderer';
 import Scene from './Scene';
 
 import Matrix from './Core/Matrix';
-import Vector3 from './Core/Vector';
-import Vector2 from './Core/Vector';
 
-import Mesh from './Mesh';
-import Vertex from './Vertex';
-import VertexBuffer from './VertexBuffer';
+import { Vector2, Vector3 } from './Core/Vector';
 
-import SceneNode from './SceneNodes/SceneNode';
-import MeshSceneNode from './SceneNodes/MeshSceneNode';
+import Vertex from './Core/Vertex';
+import VertexBuffer from './Core/VertexBuffer';
+
+import Mesh from './Mesh/Mesh';
+
+import { SceneNode, MeshSceneNode } from './SceneNodes/SceneNode';
 
 import { PompeiError, WebGLSupportError } from './utils/errors';
 
@@ -25,10 +25,11 @@ export default {
   Vector3,
   Vector2,
 
-  Mesh,
   Vertex,
   VertexBuffer,
-  
+
+  Mesh,
+
   SceneNode,
   MeshSceneNode,
 

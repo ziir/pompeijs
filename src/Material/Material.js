@@ -3,12 +3,23 @@ import Renderer from '../Renderer';
 import Core from '../Core/Core.js';
 import Matrix from '../Core/Matrix';
 
+import vertexShader from '../Shaders/Solid.vertex.glsl';
+import pixelShader from '../Shaders/Solid.fragment.glsl';
+
+const defaults = {
+  vertexPath: './Shaders/Solid.vertex.glsl',
+  pixelPath: './Shaders/Solid.fragment.glsl'
+};
+
 export default class Material {
   constructor (renderer, vertexPath, pixelPath, attributes, uniforms, defines, fromDOM) {
     if (!(renderer instanceof Renderer)) {
       throw new PompeiError('Bad parameters: renderer is needed. constructor (renderer, vertexPath, pixelPath, attributes, uniforms)');
     }
     if (!vertexPath || !pixelPath) {
+      console.warn(
+        'Either vertexPath or pixelPath is undefined. Will use default shaders.'
+      );
       throw new PompeiError('Bad parameters: vertexPath and pixelPath are needed. constructor (renderer, vertexPath, pixelPath, attributes, uniforms)');
     }
     if (!Array.isArray(attributes)) {
@@ -21,8 +32,10 @@ export default class Material {
     this._renderer = renderer;
 
     this._defines = defines ? defines : [];
-    this._vertexPath = vertexPath;
-    this._pixelPath = pixelPath;
+
+    this._vertexPath = vertexPath || defaults.vertexPath;
+    this._pixelPath = pixelPath || defaults.pixelPath;
+
     this._attributes = attributes;
     this._uniforms = uniforms ? uniforms : [];
     this._fromDOM = fromDOM;
@@ -56,24 +69,43 @@ export default class Material {
   }
   
   compile () {
+    let vertex;
+    let pixel;
     if (this._fromDOM) {
-      let vertex = document.getElementById(this._vertexPath);
-      let pixel = document.getElementById(this._pixelPath);
-      
-      this._createProgram(vertex.innerText, pixel.innerText);
+      vertex = document.getElementById(this._vertexPath).innerText;
+      pixel = document.getElementById(this._pixelPath).innerText;      
+    } else {
+      if (this._vertexPath === defaults.vertexPath) {
+        vertex = vertexShader;
+      } else {
+        // TODO
+        // Async loading via XHR using the Fetch API
+      }
+
+      if (this._pixelPath === defaults.pixelPath) {
+        pixel = pixelShader;
+      } else {
+        // TODO
+        // Async loading via XHR using the Fetch API
+      }
     }
-    else {
-      Core.LoadFile(this._vertexPath, false, (vertexCode) => {
-        Core.LoadFile(this._pixelPath, false, (pixelCode) => {
-          this._createProgram(vertexCode, pixelCode);
-        });
-      });
+
+    if (!vertex || !pixel) {
+      throw new PompeiError(
+        'No vertex nor pixel shader data in Material.compile()'
+      );
     }
+
+    this.createProgram(vertex, pixel);
   }
   
   onSetConstants (renderer) {
     var worldViewProjection = new Matrix();
-    worldViewProjection.multiply(renderer.projectionMatrix).multiply(renderer.viewMatrix).multiply(renderer.worldMatrix);
+    worldViewProjection
+      .multiply(renderer.projectionMatrix)
+      .multiply(renderer.viewMatrix)
+      .multiply(renderer.worldMatrix);
+
     renderer.setMatrix(worldViewProjection);
   }
   
@@ -83,7 +115,9 @@ export default class Material {
       defines += '#define ' + this._defines[i]; + '\n';
     }
     
-    this._program = this._renderer.createProgram(vertexCode, pixelCode, this._attributes, this._uniforms, defines);
+    this._program = this._renderer.createProgram(
+      vertexCode, pixelCode, this._attributes, this._uniforms, defines
+    );
     this._programReady = true;
   }
   

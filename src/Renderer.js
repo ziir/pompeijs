@@ -10,7 +10,7 @@ export default class Renderer {
     options = options || {};
 
     // Custom functions
-    this.onDraw = () => { };
+    this.onDraw = () => {};
     
     // Transformations
     this._worldMatrix = Matrix.Identity();
@@ -18,7 +18,15 @@ export default class Renderer {
     this._projectionMatrix = Matrix.Identity();
     
     // Rendering
-    this._defaultMaterial = new Material(this, "vertexShader", "fragmentShader", ["a_position", "a_normal", "a_uv"], ["worldViewProjection"], [], true);
+    this._defaultMaterial = new Material(
+      this,
+      'Shaders/Solid.vertex.glsl',
+      'Shaders/Solid.fragment.glsl',
+      ["a_position", "a_normal", "a_uv"],
+      ["worldViewProjection"],
+      [],
+      false
+    );
     this._defaultMaterial.compile();
     
     this._currentMaterial = null;

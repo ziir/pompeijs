@@ -10,25 +10,27 @@ export default class Matrix {
       for ( let i = 0; i < array.length; i++ ) {
         this.m[i] = array[i];
       }
-    } else {
-      this.m = Matrix.Identity().m;
     }
   }
 
   static Identity(result) {
     return Matrix.FromValues(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
   }
-
-  static FromValues (...args) {
-    if (args.length !== 16) {
+  
+  static FromValues () {
+    if (arguments.length !== 16) {
       throw new PompeiError(
-        'Bad parameters: args.length = 16. FromValues(...args)'
+        'Bad parameters: arguments.length = 16. FromValues()'
       );
     }
-
-    for ( let i = 0; i < args.length; i++ ) {
-      this.m[i] = arguments[i];
+    
+    var mat = new Matrix();
+    
+    for ( let i = 0; i < arguments.length; i++ ) {
+      mat.m[i] = arguments[i];
     }
+    
+    return mat;
   }
 
   multiply(other) {

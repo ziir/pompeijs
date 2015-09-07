@@ -1,4 +1,4 @@
-export default class Vector3 {
+export class Vector3 {
   constructor (other) {
     this.x = 0.0;
     this.y = 0.0;
@@ -46,6 +46,22 @@ export default class Vector3 {
     this.y *= other.y;
     this.z *= other.z;
 
+    return this;
+  }
+  
+  divide (other) {
+    this.x /= other.x;
+    this.y /= other.y;
+    this.z /= other.z;
+    
+    return this;
+  }
+  
+  multiplyScalar (scalar) {
+    this.x *= scalar;
+    this.y *= scalar;
+    this.z *= scalar;
+    
     return this;
   }
 

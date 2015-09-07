@@ -75,15 +75,27 @@ export default class VertexBuffer {
   get positions () {
     return this._positions;
   }
+  
+  set positions (positions) {
+    this._positions = positions;
+  }
 
   // Normals
   get normals () {
     return this._normals;
   }
+  
+  set normals (normals) {
+    this._normals = normals;
+  }
 
   // UVs
   get uvs () {
     return this._uvs;
+  }
+  
+  set uvs (uvs) {
+    this._uvs = uvs;
   }
 
   // Methods

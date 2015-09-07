@@ -1,5 +1,6 @@
 import { PompeiError } from '../utils/errors';
-import Vector3 from '../Core/Vector';
+
+import { Vector2, Vector3 } from '../Core/Vector';
 import Matrix from '../Core/Matrix';
 
 import Animator from '../Animators/Animator';

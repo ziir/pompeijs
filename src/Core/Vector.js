@@ -1,11 +1,24 @@
 export class Vector3 {
-  constructor (other) {
-    this.x = 0.0;
-    this.y = 0.0;
-    this.z = 0.0;
-
-    if (other) {
+  constructor (...args) {
+    if (args[0] instanceof Vector3) {
       this.set(other);
+    } else if (Array.isArray(args[0]) && args[0].length === 3) {
+      this.x = args[0][0];
+      this.y = args[0][1];
+      this.z = args[0][2];
+    } else if (Object.Keys(args[0]) && Object.Keys(args[0]).length === 3) {
+      this.x = other.x;
+      this.y = other.y;
+      this.z = other.z;
+    } else if (args.length === 3) {
+      this.x = args[0];
+      this.y = args[1];
+      this.z = args[2];
+    } else {
+      console.warn("Couldn't handle Vector3(...args); Assigning default values");
+      this.x = 0.0;
+      this.y = 0.0;
+      this.z = 0.0;
     }
   }
 

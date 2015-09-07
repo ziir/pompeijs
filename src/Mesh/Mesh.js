@@ -16,7 +16,7 @@ export default class Mesh {
     this._scene = scene;
     this._renderer = scene.renderer;
   }
-
+  
   get vertexBuffers () {
     return this._vertexBuffers;
   }

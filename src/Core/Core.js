@@ -1,4 +1,4 @@
-import { PompeiError } from './utils/errors';
+import { PompeiError } from '../utils/errors';
 
 export default class Core {
   static Clamp (value, low, high) {

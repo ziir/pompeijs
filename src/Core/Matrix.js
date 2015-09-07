@@ -1,4 +1,4 @@
-import { PompeiError } from './utils/errors';
+import { PompeiError } from '../utils/errors';
 import Vector3 from './Vector';
 import Core from './Core';
 

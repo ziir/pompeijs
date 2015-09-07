@@ -1,4 +1,4 @@
-import { PompeiError } from './utils/errors';
+import { PompeiError } from '../utils/errors';
 import Vertex from './Vertex';
 import Material from '../Material/Material';
 

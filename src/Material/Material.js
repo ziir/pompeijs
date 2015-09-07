@@ -1,4 +1,4 @@
-import { PompeiError } from './utils/errors';
+import { PompeiError } from '../utils/errors';
 import Renderer from '../Renderer';
 import Core from '../Core/Core.js';
 import Matrix from '../Core/Matrix';

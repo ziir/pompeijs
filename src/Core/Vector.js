@@ -111,29 +111,6 @@ export class Vector2 {
     }
   }
 
-  set (other) {
-    this._x = other.x;
-    this._y = other.y;
-  }
-
-  // X
-  get x () {
-    return this._x;
-  }
-
-  set x (x) {
-    this._x = x;
-  }
-
-  // Y
-  get y () {
-    return this._y;
-  }
-
-  set y (y) {
-    this._y = y;
-  
-
   toArray () {
     return [this.x, this.y];
   }

@@ -4,7 +4,7 @@ import Core from '../Core/Core.js';
 import Matrix from '../Core/Matrix';
 
 export default class Material {
-  constructor (renderer, vertexPath, pixelPath, attributes, uniforms, defines) {
+  constructor (renderer, vertexPath, pixelPath, attributes, uniforms, defines, fromDOM) {
     if (!(renderer instanceof Renderer)) {
       throw new PompeiError('Bad parameters: renderer is needed. constructor (renderer, vertexPath, pixelPath, attributes, uniforms)');
     }
@@ -25,6 +25,7 @@ export default class Material {
     this._pixelPath = pixelPath;
     this._attributes = attributes;
     this._uniforms = uniforms ? uniforms : [];
+    this._fromDOM = fromDOM;
 
     this._program = null;
     this._programReady = false;
@@ -55,23 +56,35 @@ export default class Material {
   }
   
   compile () {
-    Core.LoadFile(this._vertexPath, false, (vertexCode) => {
-      Core.LoadFile(this._pixelPath, false, (pixelCode) => {
-        let defines = '';
-        for (let i=0; i < this._defines.length; i++) {
-          defines += '#define ' + this._defines[i]; + '\n';
-        }
-        
-        this._program = this._renderer.createProgram(vertexCode, pixelCode, this._attributes, this._uniforms, defines);
-        this._programReady = true;
+    if (this._fromDOM) {
+      let vertex = document.getElementById(this._vertexPath);
+      let pixel = document.getElementById(this._pixelPath);
+      
+      this._createProgram(vertex.innerText, pixel.innerText);
+    }
+    else {
+      Core.LoadFile(this._vertexPath, false, (vertexCode) => {
+        Core.LoadFile(this._pixelPath, false, (pixelCode) => {
+          this._createProgram(vertexCode, pixelCode);
+        });
       });
-    });
+    }
   }
   
   onSetConstants (renderer) {
     var worldViewProjection = new Matrix();
     worldViewProjection.multiply(renderer.projectionMatrix).multiply(renderer.viewMatrix).multiply(renderer.worldMatrix);
     renderer.setMatrix(worldViewProjection);
+  }
+  
+  _createProgram (vertexCode, pixelCode) {
+    let defines = '';
+    for (let i=0; i < this._defines.length; i++) {
+      defines += '#define ' + this._defines[i]; + '\n';
+    }
+    
+    this._program = this._renderer.createProgram(vertexCode, pixelCode, this._attributes, this._uniforms, defines);
+    this._programReady = true;
   }
   
   // To be replaced

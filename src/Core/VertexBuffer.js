@@ -154,8 +154,9 @@ export default class VertexBuffer {
   get a_uv_stride () {
     return 2;
   }
-
+  
   get indexBuffer () {
     return this._indexBuffer;
   }
+  
 }

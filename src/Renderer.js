@@ -18,7 +18,7 @@ export default class Renderer {
     this._projectionMatrix = Matrix.Identity();
     
     // Rendering
-    this._defaultMaterial = new Material(this, "Shaders/Solid.vertex.glsl", "Shaders/Solid.fragment.glsl", ["position"], [], []);
+    this._defaultMaterial = new Material(this, "vertexShader", "fragmentShader", ["a_position", "a_normal", "a_uv"], ["worldViewProjection"], [], true);
     this._defaultMaterial.compile();
     
     this._currentMaterial = null;
@@ -70,7 +70,7 @@ export default class Renderer {
     
     // Draw
     let is32Bits = vertexBuffer.indexIs32Bits;
-    this._gl.drawElements(this._gl.TRIANGLES, vertexBuffer.indices.length, is32Bits ? this._gl.UNSIGNED_INT : this._gl.UNSIGNED_SHORT, is32Bits ? 4 : 2);    
+    this._gl.drawElements(this._gl.TRIANGLES, vertexBuffer.indices.length, is32Bits ? this._gl.UNSIGNED_INT : this._gl.UNSIGNED_SHORT, 0);    
   }
   
   setMaterial (material) {
@@ -81,7 +81,7 @@ export default class Renderer {
       this._currentMaterial = material;
     }
     
-    this._gl.useProgram(material.program);
+    this._gl.useProgram(this._currentMaterial.program);
   }
   
   createProgram (vertexCode, pixelCode, attributes, uniforms, defines) {
@@ -93,7 +93,7 @@ export default class Renderer {
       throw new PompeiError('Cannot compile vertex shader: ' + this._gl.getShaderInfoLog(vertex));
     }
     
-    let pixel = this._gl.createShader(this._gl.PIXEL_SHADER);
+    let pixel = this._gl.createShader(this._gl.FRAGMENT_SHADER);
     this._gl.shaderSource(pixel, defines + pixelCode);
     this._gl.compileShader(pixel);
     
@@ -153,12 +153,12 @@ export default class Renderer {
         break;
       }
     }
-
+    
     this._gl.bindBuffer(this._gl.ELEMENT_ARRAY_BUFFER, vbo);
     this._gl.bufferData(this._gl.ELEMENT_ARRAY_BUFFER, is32Bits ? new Uint32Array(indices) : new Uint16Array(indices), this._gl.STATIC_DRAW);
     this._gl.bindBuffer(this._gl.ELEMENT_ARRAY_BUFFER, null);
 
-    vertexBuffer._indices = vbo;
+    vertexBuffer._indexBuffer = vbo;
     vertexBuffer.indexIs32Bits = is32Bits;
   }
   

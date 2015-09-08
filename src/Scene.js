@@ -19,6 +19,10 @@ export default class Scene {
   get renderer () {
     return this._renderer;
   }
+  
+  get rootSceneNode () {
+    return this._rootSceneNode;
+  }
 
   drawAll () {
     if (!this._renderer.defaultMaterial.programReady) {

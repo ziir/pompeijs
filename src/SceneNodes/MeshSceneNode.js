@@ -23,7 +23,7 @@ export default class MeshSceneNode extends SceneNode {
 	}
 	
 	render() {
-		if (!this._isVisible) {
+		if (!this.isVisible) {
 			return;
 		}
 		

@@ -18,8 +18,13 @@ export default class SceneNode {
 		this._renderer = scene.renderer;
 		
 		// Parenting
-		this._parent = parent instanceof SceneNode ? parent : scene.rootSceneNode;
-		this.children = [];
+		parent = parent instanceof SceneNode ? parent : scene.rootSceneNode;
+		
+		if (parent) {
+			parent.addChild(this);
+		}
+		
+		this._children = [];
 		
 		// Transformations
 		this._position = new Vector3();
@@ -69,6 +74,10 @@ export default class SceneNode {
 		if (this._parent) {
 			parent.addChild(this);
 		}
+	}
+	
+	get children () {
+		return this._children;
 	}
 	
 	get position () {
